@@ -1,3 +1,107 @@
+:root {
+    --main-bg-color: #1E213F;
+    --secundary-bg-color: #151935;
+    --primary-accent-color: #901CD7;
+    --primary-text-color: #D7E0FF;
+    --secundary-text-color: #636984;
+    --color-shadow: rgba(57, 63, 121, 0.3);
+}
+
 *{
-    background-color: black;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'OpenSans', sans-serif;
+}
+body{
+    background-color: var(--main-bg-color);
+}
+h1 {
+    color: var(--primary-text-color);
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#selector-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--secundary-bg-color);
+    border-radius: 2em;
+    margin-top: 1.5em;
+    -webkit-box-shadow: 0 0 0.5em 0.4em var(--color-shadow); 
+    box-shadow: 0 0 0.5em 0.4em var(--color-shadow);
+}
+
+#selector-container p {
+    padding: 0.5em 1em;
+    margin: 0.3em 0.3em;
+    background-color: var(--secundary-bg-color);
+    color: var(--secundary-text-color);
+    font-weight: 600;
+    border-radius: 2em;
+}
+
+#selector-container p:hover, #selector-container p.active {
+    color: var(--primary-text-color);
+    cursor: pointer;
+    background-color: var(--primary-accent-color);
+    font-weight: 700;
+}
+
+
+#timer-container {
+    margin-top: 1.5em;
+    padding: 2em;
+}
+
+#circle {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    background-color: var(--secundary-bg-color);
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    -webkit-box-shadow: 0 0 1em 0.8em var(--color-shadow); 
+    box-shadow: 0 0 1em 0.8em var(--color-shadow);
+}
+
+#time {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+    color: var(--primary-text-color);
+    font-size: 3.5em;
+}
+
+#time:hover {
+    color: var(--secundary-text-color);
+    cursor: pointer;
+}
+
+#control {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    color: var(--secundary-text-color);
+    margin-top: 2em;
+}
+
+#control:hover, #control:active {
+    color: var(--primary-text-color);
+    cursor: pointer;
 }
