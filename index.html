@@ -19,21 +19,23 @@
 
     <!-- Script -->
     <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   
 </head>
 
 <body>
     <div id="container">
-        <h1>Pomodoro timer</h1>
+        <h1>🍅 Pomodoro timer</h1>
         <div id="selector-container">
-            <p class="active" id="work">Work</p>
-            <p id="short-break">Short break</p>
-            <p id="long-break">Long break</p>
+            <p id="work" class="selector-item active">Work</p>
+            <p id="short-break" class="selector-item">Short break</p>
+            <p id="long-break" class="selector-item">Long break</p>
         </div>
         <div id="timer-container">
             <div id="circle">
                 <div id="time">
-                    <p id="counter">25:00</p>
+                    <p id="counter">00:00</p>
+                    <p id="counter-status">START</p>
                 </div>
             </div>
             <div id="control">
