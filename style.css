@@ -1,7 +1,7 @@
 :root {
     --main-bg-color: #1E213F;
     --secundary-bg-color: #151935;
-    --primary-accent-color: #901CD7;
+    --primary-accent-color: #E23919;
     --primary-text-color: #D7E0FF;
     --secundary-text-color: #636984;
     --color-shadow: rgba(57, 63, 121, 0.3);
@@ -72,15 +72,26 @@ h1 {
     border-radius: 100%;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     -webkit-box-shadow: 0 0 1em 0.8em var(--color-shadow); 
     box-shadow: 0 0 1em 0.8em var(--color-shadow);
+
+}
+#circle:hover{
+    -webkit-box-shadow: 0 0 1.2em 1em var(--color-shadow); 
+    box-shadow: 0 0 1.2em 1em var(--color-shadow);
 }
 
 #time {
     align-items: center;
     justify-content: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+
+}
+
+
+p#counter  {
     font-weight: 700;
     color: var(--primary-text-color);
     font-size: 3.5em;
@@ -89,6 +100,12 @@ h1 {
 #time:hover {
     color: var(--secundary-text-color);
     cursor: pointer;
+}
+
+p#counter-status {
+    font-size: 1.2em;
+    color: var(--secundary-text-color);
+    font-weight: 500;
 }
 
 #control {
