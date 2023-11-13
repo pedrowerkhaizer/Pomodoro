@@ -1,5 +1,7 @@
 let countdown;
 let activeTimer;
+let cycleState  = 'Work'
+let cycleCount = 0;
 
 const timerDict = {
     'Work': 25 * 60,
@@ -92,4 +94,44 @@ function resetTimer(display, status) {
     status.innerHTML = "START"
     display.innerHTML = mountTimer(activeTimer);
     clearInterval(countdown);
+}
+
+function handleCycleCount() {
+    // cycleCount = 0 --> cycleState = 'Work'
+    // cycleCount = 1 --> cycleState = 'Short break'
+
+    // cycleCount = 2 --> cycleState = 'Work'
+    // cycleCount = 3 --> cycleState = 'Short break'
+
+    // cycleCount = 4 --> cycleState = 'Work'
+    // cycleCount = 5 --> cycleState = 'Short break'
+
+    // cycleCount = 6 --> cycleState = 'Work'
+    // cycleCount = 7 --> cycleState = 'Short break'
+
+    // cycleCount = 8 --> cycleState = 'Work'
+    // cycleCount = 9 --> cycleState = 'LONG break'
+    // reset cycleCount
+
+    if(cycleCount == 0 || (cycleCount < 9 && cycleCount % 2 == 0)){
+        cycleState = 'Work';
+        cycleCount ++;
+    }
+    if(cycleCount < 9 && cycleCount % 2 != 0) {
+        cycleState = 'Short break';
+        cycleCount ++;
+    }
+    if(cycleCount == 9) {
+        cycleState = 'Long break'
+        cycleCount = 0;
+    }
+}
+
+function handleCycle() {
+    if(cycleState == 'Work'){
+       // remove .active from all selectorItems but 'Work'
+       // set .active to 'Work' selectorItem
+       // mount display
+       // reset timer?
+    }
 }
