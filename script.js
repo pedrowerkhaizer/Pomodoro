@@ -10,6 +10,12 @@ const timerDict = {
 }
 
 document.addEventListener('DOMContentLoaded', () =>{
+
+    video=getElementsByTagName('video');
+    function removeControls(video){
+    video.removeAttribute('controls');
+    }
+    window.onload=removeControls(video);
     
     let display = document.getElementById("counter");
     let status =  document.getElementById("counter-status");

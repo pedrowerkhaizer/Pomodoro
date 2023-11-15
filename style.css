@@ -1,6 +1,6 @@
 :root {
     --main-bg-color: #1E213F;
-    --secundary-bg-color: #151935;
+    --secundary-bg-color: #171b38;
     --primary-accent-color: #E23919;
     --primary-text-color: #D7E0FF;
     --secundary-text-color: #636984;
@@ -20,6 +20,51 @@ body{
 }
 h1 {
     color: var(--primary-text-color);
+}
+
+#modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(23, 27, 56, 0.9);
+}
+
+#modal-container {
+    width: 50%;
+    margin: 50vh auto 0;
+    transform: translateY(-50%);
+    background-color: var(--main-bg-color);
+    border-radius: 1em;
+    padding: 16px 16px;
+    -webkit-box-shadow: 0 0 0.5em 0.4em var(--color-shadow); 
+    box-shadow: 0 0 0.5em 0.4em var(--color-shadow);
+}
+
+#modal h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+#modal h3 {
+    color: var(--secundary-text-color);
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.8em;
+}
+
+#modal i {
+    color: var(--secundary-text-color);
+    position: absolute;
+    font-size: 1.2em;
+    right: 16px;
+}
+
+video {
+    border-radius: 0.5em;
+    overflow: hidden;
 }
 
 #container {
