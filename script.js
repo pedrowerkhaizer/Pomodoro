@@ -4,52 +4,132 @@ let cycleState  = 'Work'
 let cycleCount = 0;
 
 const timerDict = {
-    'Work': 25 * 60,
-    'Short break': 5 * 60,
-    'Long break': 15 * 60
+    'Work': 0.025 * 60,
+    'Short break': 0.025 * 60,
+    'Long break': 0.025 * 60
+    
+}
+// 25 - 5 - 15
+
+titleModal = {
+    'Work': 'Congrats!',
+    'Short break': "Ok... I think we're good to go! right?",
+    'Long break': "That was relaxing... Let's get back to work"
+}
+subtitleModal = {
+    'Work': "You've completed 25 minutes of deep focus :)",
+    'Short break': "Let's complete more 25 minutes of work",
+    'Long break': "We got a lot of work done so far. Let's continue."
+}
+
+gifModal = {
+    'Work': "https://media0.giphy.com/media/hZj44bR9FVI3K/giphy.gif?cid=ecf05e47rmrnzsf7aq5ew5axyb0i549n1gg5vj56mf9k5r7k&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+    'Short break': "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjRjNHExcjdnaDJyenozejloeDQ2YXp0dnk1NmhweHkwbmxmdXhkdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BXa2alBjrCXC/giphy.gif",
+    'Long break': "https://media4.giphy.com/media/TW8Ma1a8ZsZ8I/giphy.gif?cid=ecf05e47e3fhz9zrp9hg83rjbw7uutx51ve2lvl17fmaawnt&ep=v1_gifs_related&rid=giphy.gif&ct=g"
 }
 
 document.addEventListener('DOMContentLoaded', () =>{
-
-    video=getElementsByTagName('video');
-    function removeControls(video){
-    video.removeAttribute('controls');
-    }
-    window.onload=removeControls(video);
     
     let display = document.getElementById("counter");
-    let status =  document.getElementById("counter-status");
+    let counterStatus =  document.getElementById("counter-status");
     let resetBtn = document.getElementById("reset-control");
     let timerBtn = document.getElementById("circle");
+
+    let modal = document.getElementById("modal");
+    let closeModal = document.getElementById("close-modal");
+    // set modal invisible as default
+    modal.style.display = "none";
 
     let selectorItems = document.getElementsByClassName("selector-item");
     let activeSelector = document.getElementsByClassName("active")[0];
     activeTimer = timerDict[activeSelector?.innerHTML]; 
 
+    closeModal.addEventListener('click', () => {
+        modal.style.display = "none";
+    })
+
     timerBtn.addEventListener('click', ( ) => {
-        startStop(display, status);
+        startStop(display, counterStatus);
     })
     resetBtn.addEventListener('click', ( ) => {
-        resetTimer(display, status);
+        resetTimer(display, counterStatus);
     })
     
-    Array.prototype.forEach.call(selectorItems, function(item){
-        item.addEventListener('click', () => {
-            activeSelector = document.getElementsByClassName("active")[0];
-            activeSelector.classList.remove('active');
-            item.classList.add('active');
-            resetTimer(display, status)
-            mountDisplay(display);
-        })
-    });
+    // Disabled for allowing only the estipulated flow
+    // // go through each item of selectorItems
+    // Array.prototype.forEach.call(selectorItems, function(item){
+    //     item.addEventListener('click', () => {
+    //         // remove "active" class of the current active selector
+    //         activeSelector = document.getElementsByClassName("active")[0];
+    //         activeSelector.classList.remove('active');
+    //         // set class active to the item clicked
+    //         item.classList.add('active');
+    //         // mount timer
+    //         resetTimer(display, counterStatus)
+    //         // mount display
+    //         mountDisplay(display);
+    //     })
+    // });
 
     mountDisplay(display);
 
 })
 
+function handleEndOfFocus(display, counterStatus) {
+    // remove "active" class of the current active selector
+    activeSelector = document.getElementsByClassName("active")[0];
+    activeSelector.classList.remove('active');
+
+    let work = document.getElementById("work");
+    let shortBreak = document.getElementById("short-break");
+    let longBreak = document.getElementById("long-break");
+
+    if(cycleState == 'Work' && cycleCount < 4){
+        showModal('Work');
+        modal.style.display = "block";
+        shortBreak.classList.add('active');
+        cycleState = 'Short break'
+    }
+    else if(cycleState = 'Short break' && cycleCount < 4) {
+        showModal('Short break');
+        work.classList.add('active');
+        cycleState = 'Work'
+        cycleCount ++;
+    }
+    else if(cycleState = 'Work' && cycleCount == 4) {
+        showModal('Work');
+        longBreak.classList.add('active');
+        cycleState = 'Long break'
+        cycleCount = 0;
+    }
+    else if(cycleState = 'Long break') {
+        showModal('Long break');
+        work.classList.add('active');
+        cycleState = 'Work'
+        cycleCount ++;
+    }
+
+    // mount timer
+    resetTimer(display, counterStatus)
+    // mount display
+    mountDisplay(display);
+}
+
+function showModal(type) {
+    title = document.getElementById("modal-title");
+    subtitle = document.getElementById("modal-subtitle");
+    gif = document.getElementById("modal-gif");
+    
+    title.innerHTML = titleModal[type];
+    subtitle.innerHTML = subtitleModal[type];
+    gif.src = gifModal[type];
+    modal.style.display = "block";
+}
+
 function mountDisplay(display) {
     activeSelector = document.getElementsByClassName("active")[0];
     activeTimer = timerDict[activeSelector?.innerHTML]; 
+    console.log(activeTimer)
     display.innerHTML = mountTimer(activeTimer);
 }
 
@@ -63,20 +143,21 @@ function mountTimer(activeTimer) {
     return minutes + ':' + seconds;
 }
 
-function startStop(display, status) {
-    if(status.innerHTML == 'START'){
-        status.innerHTML = 'STOP'
+function startStop(display, counterStatus) {
+    if(counterStatus.innerHTML == 'START'){
+        counterStatus.innerHTML = 'STOP'
         let timer = activeTimer, minutes, seconds;
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
         
         countdown = setInterval( function () {
+            if( minutes == 0 && seconds == 0 ) {
+                handleEndOfFocus(display, counterStatus);
+                return;
+            }
             if(seconds == 0) {
                 seconds = 60;
                 minutes--;
-            }
-            if( minutes == 0 && seconds == 0 ) {
-                return;
             }
 
             seconds --;
@@ -88,56 +169,16 @@ function startStop(display, status) {
 
         }, 1000)
     }
-    else if(status.innerHTML == 'STOP') {
-        return resetTimer(display, status);
+    else if(counterStatus.innerHTML == 'STOP') {
+        return resetTimer(display, counterStatus);
     }
 }
 
-function resetTimer(display, status) {
+function resetTimer(display, counterStatus) {
     activeSelector = document.getElementsByClassName("active")[0];
     activeTimer = timerDict[activeSelector?.innerHTML]; 
 
-    status.innerHTML = "START"
+    counterStatus.innerHTML = "START"
     display.innerHTML = mountTimer(activeTimer);
     clearInterval(countdown);
-}
-
-function handleCycleCount() {
-    // cycleCount = 0 --> cycleState = 'Work'
-    // cycleCount = 1 --> cycleState = 'Short break'
-
-    // cycleCount = 2 --> cycleState = 'Work'
-    // cycleCount = 3 --> cycleState = 'Short break'
-
-    // cycleCount = 4 --> cycleState = 'Work'
-    // cycleCount = 5 --> cycleState = 'Short break'
-
-    // cycleCount = 6 --> cycleState = 'Work'
-    // cycleCount = 7 --> cycleState = 'Short break'
-
-    // cycleCount = 8 --> cycleState = 'Work'
-    // cycleCount = 9 --> cycleState = 'LONG break'
-    // reset cycleCount
-
-    if(cycleCount == 0 || (cycleCount < 9 && cycleCount % 2 == 0)){
-        cycleState = 'Work';
-        cycleCount ++;
-    }
-    if(cycleCount < 9 && cycleCount % 2 != 0) {
-        cycleState = 'Short break';
-        cycleCount ++;
-    }
-    if(cycleCount == 9) {
-        cycleState = 'Long break'
-        cycleCount = 0;
-    }
-}
-
-function handleCycle() {
-    if(cycleState == 'Work'){
-       // remove .active from all selectorItems but 'Work'
-       // set .active to 'Work' selectorItem
-       // mount display
-       // reset timer?
-    }
 }
