@@ -4,12 +4,11 @@ let cycleState  = 'Work'
 let cycleCount = 0;
 
 const timerDict = {
-    'Work': 0.025 * 60,
-    'Short break': 0.025 * 60,
-    'Long break': 0.025 * 60
+    'Work': 25 * 60,
+    'Short break': 5 * 60,
+    'Long break': 15 * 60
     
 }
-// 25 - 5 - 15
 
 titleModal = {
     'Work': 'Congrats!',
