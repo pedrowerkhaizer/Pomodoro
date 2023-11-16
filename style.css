@@ -32,6 +32,8 @@ h1 {
 }
 
 #modal-container {
+    display: flex;
+    flex-direction: column;
     width: 50%;
     margin: 50vh auto 0;
     transform: translateY(-50%);
@@ -40,6 +42,8 @@ h1 {
     padding: 16px 16px;
     -webkit-box-shadow: 0 0 0.5em 0.4em var(--color-shadow); 
     box-shadow: 0 0 0.5em 0.4em var(--color-shadow);
+    align-items: center;
+    justify-content: center;
 }
 
 #modal h1 {
@@ -60,9 +64,11 @@ h1 {
     position: absolute;
     font-size: 1.2em;
     right: 16px;
+    top: 16px;
+    cursor: pointer;
 }
 
-video {
+img {
     border-radius: 0.5em;
     overflow: hidden;
 }
@@ -96,9 +102,16 @@ video {
     border-radius: 2em;
 }
 
-#selector-container p:hover, #selector-container p.active {
-    color: var(--primary-text-color);
+#selector-container p:hover {
+    /* color: var(--primary-text-color);
     cursor: pointer;
+    background-color: var(--primary-accent-color);
+    font-weight: 700; */
+    cursor: not-allowed;
+}
+
+#selector-container p.active {
+    color: var(--primary-text-color);
     background-color: var(--primary-accent-color);
     font-weight: 700;
 }
