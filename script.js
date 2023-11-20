@@ -127,9 +127,9 @@ function handleEndOfFocus(display, counterStatus) {
 }
 
 function showModal(type) {
-    title = document.getElementById("modal-title");
-    subtitle = document.getElementById("modal-subtitle");
-    gif = document.getElementById("modal-gif");
+    let title = document.getElementById("modal-title");
+    let subtitle = document.getElementById("modal-subtitle");
+    let gif = document.getElementById("modal-gif");
     
     title.innerHTML = titleModal[type];
     subtitle.innerHTML = subtitleModal[type];
