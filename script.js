@@ -1,5 +1,5 @@
-let countdown;
-let activeTimer;
+import { getPun } from './punAPI.js';
+let countdown, activeTimer, activeSelector;
 let cycleState  = 'Work'
 let cycleCount = 0;
 
@@ -7,32 +7,31 @@ const timerDict = {
     'Work': 25 * 60,
     'Short break': 5 * 60,
     'Long break': 15 * 60
-    
 }
 
-titleModal = {
+const titleModal = {
     'Work': 'Congrats!',
     'Short break': "Ok... I think we're good to go! right?",
     'Long break': "That was relaxing... Let's get back to work"
 }
-subtitleModal = {
+const subtitleModal = {
     'Work': "You've completed 25 minutes of deep focus :)",
     'Short break': "Let's complete more 25 minutes of work",
     'Long break': "We got a lot of work done so far. Let's continue."
 }
 
-gifModal = {
+const gifModal = {
     'Work': "https://media0.giphy.com/media/hZj44bR9FVI3K/giphy.gif?cid=ecf05e47rmrnzsf7aq5ew5axyb0i549n1gg5vj56mf9k5r7k&ep=v1_gifs_search&rid=giphy.gif&ct=g",
     'Short break': "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjRjNHExcjdnaDJyenozejloeDQ2YXp0dnk1NmhweHkwbmxmdXhkdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BXa2alBjrCXC/giphy.gif",
     'Long break': "https://media4.giphy.com/media/TW8Ma1a8ZsZ8I/giphy.gif?cid=ecf05e47e3fhz9zrp9hg83rjbw7uutx51ve2lvl17fmaawnt&ep=v1_gifs_related&rid=giphy.gif&ct=g"
 }
 
 document.addEventListener('DOMContentLoaded', () =>{
-    
     let display = document.getElementById("counter");
     let counterStatus =  document.getElementById("counter-status");
     let resetBtn = document.getElementById("reset-control");
     let timerBtn = document.getElementById("circle");
+    const punElement = document.getElementById("pun-text");
 
     let modal = document.getElementById("modal");
     let closeModal = document.getElementById("close-modal");
@@ -42,6 +41,10 @@ document.addEventListener('DOMContentLoaded', () =>{
     let selectorItems = document.getElementsByClassName("selector-item");
     let activeSelector = document.getElementsByClassName("active")[0];
     activeTimer = timerDict[activeSelector?.innerHTML]; 
+
+    setInterval(() => {
+        updatePun(punElement);
+    }, 5000);
 
     closeModal.addEventListener('click', () => {
         modal.style.display = "none";
@@ -73,6 +76,15 @@ document.addEventListener('DOMContentLoaded', () =>{
     mountDisplay(display);
 
 })
+
+async function updatePun(element) {
+    let currentPun = await getPun();
+    element.innerHTML = escapeRegExp(currentPun);
+}
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  }
 
 function handleEndOfFocus(display, counterStatus) {
     // remove "active" class of the current active selector
@@ -128,7 +140,6 @@ function showModal(type) {
 function mountDisplay(display) {
     activeSelector = document.getElementsByClassName("active")[0];
     activeTimer = timerDict[activeSelector?.innerHTML]; 
-    console.log(activeTimer)
     display.innerHTML = mountTimer(activeTimer);
 }
 
