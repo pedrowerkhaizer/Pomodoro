@@ -3,7 +3,11 @@
 
  ![image](https://images.ctfassets.net/dm4oa8qtogq0/390glBwOnV44EyoPoiJC6Z/3ddbb50dbc61e3a11afc6b05aa9e21ab/productivity-method_pomodoro-summary.jpg)
  
-![image](https://github.com/pedrowerkhaizer/Pomodoro/assets/42971669/cd2bb112-4a1f-419a-932d-190238efd8a1)
+![image](https://github.com/pedrowerkhaizer/Pomodoro/assets/42971669/d8273ade-8b7f-4fe5-bf4b-b61d232aa294)
+
+![image](https://github.com/pedrowerkhaizer/Pomodoro/assets/42971669/33e203fc-701d-4413-824c-cff9d111d12d)
+
+
 
 
 
