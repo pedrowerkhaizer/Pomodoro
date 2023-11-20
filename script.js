@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     setInterval(() => {
         updatePun(punElement);
-    }, 5000);
+    }, 15000);
 
     closeModal.addEventListener('click', () => {
         modal.style.display = "none";
