@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     setInterval(() => {
         updatePun(punElement);
-    }, 15000);
+    }, 10000);
 
     closeModal.addEventListener('click', () => {
         modal.style.display = "none";
@@ -83,8 +83,8 @@ async function updatePun(element) {
 }
 
 function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-  }
+    return string.replace(/[^a-zA-Z0-9 ]/g, ' ') 
+}
 
 function handleEndOfFocus(display, counterStatus) {
     // remove "active" class of the current active selector
